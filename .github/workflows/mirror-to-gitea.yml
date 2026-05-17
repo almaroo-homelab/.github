@@ -9,8 +9,6 @@ jobs:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
       - name: Push to Gitea
-        env:
-          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
         run: |
-          git remote add gitea https://oauth2:${GITEA_TOKEN}@git.almaroo.work/almaroo/${{ github.event.repository.name }}.git
+          git remote add gitea https://oauth2:${{ secrets.GITEA_TOKEN }}@git.almaroo.work/almaroo/${{ github.event.repository.name }}.git
           git push gitea --tags HEAD:master
