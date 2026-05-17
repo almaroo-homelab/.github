@@ -6,6 +6,12 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
+      - name: Verify secret integrity
+        env:
+          T: ${{ secrets.GITEA_TOKEN }}
+        run: |
+          echo "length=${#T}"
+          echo "sha=$(printf '%s' "$T" | sha256sum | cut -c1-12)"
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
       - name: Push to Gitea
